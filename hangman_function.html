@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Виселица!</title>
+    </head>
+    <body>
+        <h1>Виселица!</h1>
+        <script>
+            // words array
+            var words = [ 
+                "программа",
+                "макака", 
+                "прекрасный", 
+                "оладушек",
+                "книга",
+                "индиффирентный",
+                "демография"
+            ];
+
+            var pickWord = function () {
+                // Возвращает случайно выбранное слово
+                return words[Math.floor(Math.random() * words.length)];
+            };
+
+            var setupAnswerArray = function (word) {
+                // Возвращает итоговый массив для заданного слова word
+                var answerArray = [];
+                for (var i = 0; i < word.length; i++) {
+                    answerArray[i] = "_";
+                };
+                return answerArray;
+            };
+
+            var showPlayerProgress = function (answerArray) {
+                alert(answerArray.join(" "));
+            };
+
+            var getGuess = function () {
+                var guessedLetter = prompt("Угадайте букву или нажмите Отмена для выхода из игры.");
+                return guessedLetter;
+            };
+
+            var updateGameState = function (guessedLetter, word, answerArray) {
+                // Обновляет answerArray согласно ответу игрока (guess)
+                // возвращает число, обозначающее, сколько раз буква guess
+                // встречается в слове, чтобы можно было обновить значение
+                // remainingLetters
+                var count = 0;
+                for (var j = 0; j < word.length; j++) {
+                    if (word[j] === guessedLetter) {
+                        answerArray[j] = guessedLetter;
+                        count++; 
+                    }
+                }
+
+                return count;
+            };
+
+            var showAnswerAndCongratulatePlayer = function (answerArray) {
+                // С помощью alert показывает игроку отгаданное слово
+                // и поздравляет его с победой
+                alert(answerArray.join(" "));
+                alert("Отлично! Было загадано слово " + word);
+            };
+
+            // word: загаданное слово
+            var word = pickWord();
+
+            // answerArray: итоговый массив
+            var answerArray = setupAnswerArray(word);
+
+            // remainingLetters: сколько букв осталось угадать 
+            var remainingLetters = word.length;
+            
+            while (remainingLetters > 0) { // сюда надо прописать условие про попытки, отслеживать их
+                showPlayerProgress(answerArray);
+                // guess: ответ игрока
+                var guessedLetter = getGuess(); 
+                if (guessedLetter === null) {
+                    break;
+                } else if (guessedLetter.length !== 1) {
+                    alert("Пожалуйста, введите одну букву."); 
+                } else {
+                    // correctGuesses: количество открытых букв
+                    var correctGuesses = updateGameState(guessedLetter, word, answerArray);
+                    remainingLetters -= correctGuesses; 
+                }
+            }
+            showAnswerAndCongratulatePlayer(answerArray);
+
+            // drawing an outlined human
+            // ctx.lineWidth = 4;
+            // ctx.strokeRect(20, 20, 20, 20);
+            // ctx.beginPath();
+            // ctx.moveTo(30, 40);
+            // ctx.lineTo(30, 80);
+
+            // ctx.moveTo(10, 50);
+            // ctx.lineTo(30, 60);
+            // ctx.lineTo(50, 50);
+
+            // ctx.moveTo(10, 110);
+            // ctx.lineTo(30, 80);
+            // ctx.lineTo(50, 110);
+            // ctx.stroke();
+        </script>
+    </body>
+</html>

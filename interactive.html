@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Интерактивное программирование</title>
+    </head>
+    <body style="margin-top:0; margin-left:0">
+        <h1 id="heading" style="margin-top:0; margin-left:0">Click me</h1>
+        <script src="https://code.jquery.com/jquery-2.1.0.js"> </script>
+
+        <script>
+
+            // var leftOffset = 0;
+            // var moveHeading = function () {
+            //     $("#heading").offset({ left: leftOffset });
+            //     leftOffset++;
+            //     if (leftOffset > 200) {
+            //         leftOffset = 0;
+            //     };
+            // };
+
+            // setInterval(moveHeading, 30);
+
+            // clicks
+
+            // var clickHandler = function(event) {
+            //     console.log("Клик! " + event.pageX + " " + event.pageY);
+            // };
+
+            // $("h1").click(clickHandler);
+
+            var leftOffset = 0;
+            var topOffset = 0;
+            var currentDirection = "toRight"; // toBottom, toLeft, toTop
+            var intervalId;
+            var clickCounter = 0;
+            var startInterval = 30;
+
+            var clearGame = function () {
+                leftOffset = 0;
+                topOffset = 0;
+                currentDirection = "toRight";
+                clickCounter = 0;
+            };
+
+            var moveHeading = function () {
+                if (currentDirection === "toRight") {
+                    leftOffset++;
+                    if (leftOffset === 200) {
+                        currentDirection = "toBottom";
+                    };
+                };
+
+                if (currentDirection === "toBottom") {
+                    topOffset++;
+                    if (topOffset === 200) {
+                        currentDirection = "toLeft";
+                    };
+                };
+
+                if (currentDirection === "toLeft") {
+                    leftOffset--;
+                    if (leftOffset === 0) {
+                        currentDirection = "toTop";
+                    };
+                };
+
+                if (currentDirection === "toTop") {
+                    topOffset--;
+                    if (topOffset === 0) {
+                        currentDirection = "toRight";
+                    };
+                };
+
+
+                $("#heading").offset({ left: leftOffset, top: topOffset });
+            };
+
+            $("h1").click(function() {
+                clearInterval(intervalId);
+                intervalId = setInterval(moveHeading, startInterval - clickCounter * 10);
+                clickCounter++;
+                $("h1").text("You did " + clickCounter + " click");
+
+                if (clickCounter === 10) {
+                    clearInterval(intervalId);
+                    clearGame();
+                    $("h1").text("You win!");
+                };
+            });
+
+        </script>
+
+    </body>
+</html>

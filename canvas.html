@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="200" height="200"></canvas>
+        <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+        <script>
+            var canvas = document.getElementById("canvas"); 
+            var ctx = canvas.getContext("2d"); 
+            // ctx.fillRect(0, 0, 10, 10);
+            // for (var i = 0; i < 8; i++) {
+            //     ctx.fillRect(i * 10, i * 10, 10, 10); 
+            // }
+
+            // drawing a human
+            // ctx.fillRect(25, 10, 50, 50);
+            // ctx.fillRect(45, 60, 10, 20);
+            // ctx.fillRect(0, 70, 100, 10);
+            // ctx.fillRect(20, 80, 60, 60);
+            // ctx.fillRect(20, 140, 10, 40);
+            // ctx.fillRect(70, 140, 10, 40);
+
+            // default color is black, to change it use "fillStyle"
+            // ctx.fillStyle = "Red";
+            // ctx.fillRect(0, 0, 100, 100);
+
+            // ctx.fillStyle = "DarkCyan";
+            // ctx.fillRect(0, 0, 50, 100);
+            
+            // ctx.fillStyle = "DarkGrey"; 
+            // ctx.fillRect(50, 0, 50, 100);
+
+            // ctx.fillStyle = "Gold"; 
+            // ctx.fillRect(100, 0, 50, 100);
+
+            // stroke rectangles
+            // ctx.strokeStyle = "DeepPink";
+            // ctx.lineWidth = 4;
+            // ctx.strokeRect(10, 10, 100, 20);
+
+            // drawing ways and lines
+            // ctx.strokeStyle = "Turquoise";
+            // ctx.lineWidth = 4;
+            // ctx.beginPath(); // beginning of new way
+            // ctx.moveTo(10, 10); // start line
+            // ctx.lineTo(60, 60); // end line
+            // ctx.moveTo(60, 10);
+            // ctx.lineTo(10, 60);
+            // ctx.stroke(); // finally creates lines
+
+            // drawing an outlined human
+            // ctx.lineWidth = 4;
+            // ctx.strokeRect(20, 20, 20, 20);
+            // ctx.beginPath();
+            // ctx.moveTo(30, 40);
+            // ctx.lineTo(30, 80);
+
+            // ctx.moveTo(10, 50);
+            // ctx.lineTo(30, 60);
+            // ctx.lineTo(50, 50);
+
+            // ctx.moveTo(10, 110);
+            // ctx.lineTo(30, 80);
+            // ctx.lineTo(50, 110);
+            // ctx.stroke();
+
+            // var canvas = document.getElementById("canvas"); 
+            // var ctx = canvas.getContext("2d"); 
+            // ctx.fillStyle = "Blue";
+            // ctx.beginPath();
+            // ctx.moveTo(100, 100); 
+            // ctx.lineTo(100, 60); 
+            // ctx.lineTo(130, 30); 
+            // ctx.lineTo(160, 60); 
+            // ctx.lineTo(160, 100); 
+            // ctx.lineTo(100, 100);
+            // ctx.fill();
+
+            // ctx.lineWidth = 2; 
+            // ctx.strokeStyle = "Green";
+
+            // // quarter of an ellipse
+            // ctx.beginPath();
+            // ctx.arc(50, 50, 20, 0, Math.PI / 2, false);
+            // ctx.stroke();
+
+            // // half
+            // ctx.beginPath();
+            // ctx.arc(100, 50, 20, 0, Math.PI, false);
+            // ctx.stroke();
+
+            // // full
+            // ctx.beginPath();
+            // ctx.arc(150, 50, 20, 0, Math.PI * 2, false);
+            // ctx.stroke();
+            // // ctx.arx(x, y, radius, z, Math.PI, false)
+            // // x, y - coordinates of a center
+            // // z - starting angle
+            // // Math.PI, Math.PI / 2, Math.PI * 2 - half, quarter or full ellipse
+            // // false / true means we're drawing clockwise or counterclowckwise respectively
+
+
+            // drawing elipse via function
+
+
+            // SNOWMAN
+            // var circle = function (x, y, radius, fillCircle) { 
+            //     ctx.beginPath();
+            //     ctx.arc(x, y, radius, 0, Math.PI * 2, false); 
+            //     if (fillCircle === true) {
+            //         ctx.fill();
+            //     } else {
+            //         ctx.lineWidth = 4; 
+            //         ctx.stroke();
+            //     };
+
+            // };
+
+            // circle(70, 70, 30, false); 
+
+            // circle(70, 140, 40, false); 
+
+            // circle(60, 65, 5, true); 
+            // circle(80, 65, 5, true); 
+
+            // circle(70, 120, 5, true); 
+            // circle(70, 140, 5, true); 
+            // circle(70, 160, 5, true);
+
+            // ctx.fillStyle = "Orange"; 
+            // circle(70, 75, 5, true);  
+
+
+            // drawing points via array coordinates
+            // var drawPoints = function(coordinates) {
+            //     ctx.beginPath();
+            //     ctx.moveTo(coordinates[0][0], coordinates[0][1]);
+            //     for (var i = 1; i < coordinates.length; i++) {
+            //         ctx.lineTo(coordinates[i][0], coordinates[i][1]);
+            //     };
+            //     ctx.stroke();
+            // };
+
+            // // var points = [[50, 50], [50, 100], [100, 100], [100, 50], [50, 50]];
+            // // drawPoints(points);
+
+            // var mysteryPoints = [[50, 50], [50, 100], [25, 120], [100, 50], [70, 90], [100, 90], [70, 120]];
+            // drawPoints(mysteryPoints);
+
+            // drawing after a mousemove
+            $("canvas").mousemove(function(event) {
+                var circle = function(x, y) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2, false);
+                    ctx.fill();
+                };
+                circle(event.pageX, event.pageY);
+            });
+
+
+        </script>
+    </body>
+</html>

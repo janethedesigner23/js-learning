@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Изучаем DOM</title>
+    </head>
+    <body>
+        <!-- by setting Id, we can fins this particulat element and use it in js later -->
+        <h1 id="main-heading">Привет, мир!</h1>
+
+        <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+        <script>
+            // #1
+            var friends = ["Lisa", "Kate", "Ann"];
+            for (var i = 0; i < 3; i++) {
+                $("body").append("<p>" + friends[i] + "</p>");
+            }
+
+            $("h1").text("My friends");
+
+            $("p").hide(0).fadeIn(3000);
+            $("p").append(" the best");
+
+            // #2
+            // for (var j = 0; j < 5; j++) {
+            //     $("h1").fadeOut(1000); 
+            //     $("h1").delay(5000).fadeIn(1000);
+            // };
+
+            // #4
+            $("h1").fadeTo(2000, 0.5);
+            // fadeTo sets opacity of fading
+
+
+
+
+            // document.getElementByID is a DOM-method for finding an element in HTML, here "main=-heading"
+            // var headingElement = document.getElementById("main-heading");
+            // console.log(headingElement); // returns an element in console
+            // var newHeadingText = prompt("Введите новый заголовок");
+            // // $("#main-heading").text(newHeadingText); // jQuery function for searching elements
+            // // headingElement.innerHTML = newHeadingText; // innerHTML helps to know what text is inside and change it
+
+            // $("body").append("<p>Это новый параграф</p>"); 
+            // // with append you can create new elements; $("body") searches for <body>
+            
+            // for (var i = 0; i < 3; i++) {
+            //     var hobby = prompt("Назови одно из своих хобби!"); 
+            //     $("body").append("<p>" + hobby + "</p>");
+            //     // we can use append in cycle "for"
+            // };
+
+            // $("h1").fadeOut(3000);
+
+            // $("h1").text("Этот текст скоро исчезнет").fadeOut(3000); 
+            // chaining in jQuery helps to call methods one by one
+
+            // for (var i = 0; i < 3; i++) {
+            //     $("h1").fadeOut(1000); 
+            //     $("h1").fadeIn(1000);
+            // };
+            // $("h1").slideUp(1000).slideDown(1000);
+
+
+            // $("h1").hide(0);
+            // $("h1").fadeIn(1000);
+
+            
+
+        </script>
+
+    </body>
+</html>
