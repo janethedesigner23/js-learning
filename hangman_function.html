@@ -6,6 +6,7 @@
     </head>
     <body>
         <h1>Виселица!</h1>
+        <canvas id="canvas" width="500" height="500"></canvas>
         <script>
             // words array
             var words = [ 
@@ -17,6 +18,13 @@
                 "индиффирентный",
                 "демография"
             ];
+
+            var mistakesMade = 0;
+
+            // canvas 
+            var canvas = document.getElementById("canvas"); 
+            var ctx = canvas.getContext("2d");
+            ctx.lineWidth = 4;
 
             var pickWord = function () {
                 // Возвращает случайно выбранное слово
@@ -64,6 +72,38 @@
                 alert("Отлично! Было загадано слово " + word);
             };
 
+            var showAnswerAndEndGame = function (answerArray) {
+                alert("Игра окончена. Было загадано слово " + word);
+            };
+
+            // drawing Human
+            var drawHuman = function() {
+                if (mistakesMade === 1) {
+                    ctx.strokeRect(20, 20, 20, 20);
+                } else if (mistakesMade === 2) {
+                    ctx.beginPath();
+                    ctx.moveTo(30, 40);
+                    ctx.lineTo(30, 80);
+                } else if (mistakesMade === 3) {
+                    ctx.beginPath();
+                    ctx.moveTo(10, 50);
+                    ctx.lineTo(30, 60); 
+                } else if (mistakesMade === 4) {
+                    ctx.beginPath();
+                    ctx.moveTo(30, 60);
+                    ctx.lineTo(50, 50);
+                } else if (mistakesMade === 5) {
+                    ctx.beginPath();
+                    ctx.moveTo(10, 110);
+                    ctx.lineTo(30, 80);
+                } else if (mistakesMade === 6) {
+                    ctx.beginPath();
+                    ctx.moveTo(30, 80);
+                    ctx.lineTo(50, 110);
+                }
+                ctx.stroke();
+            };
+
             // word: загаданное слово
             var word = pickWord();
 
@@ -73,8 +113,9 @@
             // remainingLetters: сколько букв осталось угадать 
             var remainingLetters = word.length;
             
-            while (remainingLetters > 0) { // сюда надо прописать условие про попытки, отслеживать их
+            while (remainingLetters > 0 && mistakesMade < 6) { // сюда надо прописать условие про попытки, отслеживать их
                 showPlayerProgress(answerArray);
+           
                 // guess: ответ игрока
                 var guessedLetter = getGuess(); 
                 if (guessedLetter === null) {
@@ -84,26 +125,22 @@
                 } else {
                     // correctGuesses: количество открытых букв
                     var correctGuesses = updateGameState(guessedLetter, word, answerArray);
+
+                    if (correctGuesses === 0) {
+                        mistakesMade++;
+                    };
                     remainingLetters -= correctGuesses; 
                 }
+
+                drawHuman();
             }
-            showAnswerAndCongratulatePlayer(answerArray);
 
-            // drawing an outlined human
-            // ctx.lineWidth = 4;
-            // ctx.strokeRect(20, 20, 20, 20);
-            // ctx.beginPath();
-            // ctx.moveTo(30, 40);
-            // ctx.lineTo(30, 80);
+            if (remainingLetters === 0 && mistakesMade < 6) {
+                showAnswerAndCongratulatePlayer(answerArray);
+            } else {
+                showAnswerAndEndGame(answerArray);
+            };
 
-            // ctx.moveTo(10, 50);
-            // ctx.lineTo(30, 60);
-            // ctx.lineTo(50, 50);
-
-            // ctx.moveTo(10, 110);
-            // ctx.lineTo(30, 80);
-            // ctx.lineTo(50, 110);
-            // ctx.stroke();
         </script>
     </body>
 </html>
