@@ -609,3 +609,20 @@ var car = new Car(100, 200)
 // to use canvas you have to add it to your html <canvas id="canvas" width="200" height="200"></canvas>
 // var ctx = canvas.getContext("2d"); creates context of drawing by method "getContext"
 // here we use "2d", what means that our image will be two-dimentional
+
+
+// animation canvas
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+
+var position = 0;
+
+setInterval(function () { 
+    ctx.clearRect(0, 0, 200, 200); 
+    ctx.fillRect(position, 0, 20, 20);
+    position++;
+    if (position > 200) {
+        position = 0; 
+    }
+}, 
+30);
