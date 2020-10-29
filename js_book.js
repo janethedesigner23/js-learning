@@ -626,3 +626,11 @@ setInterval(function () {
     }
 }, 
 30);
+
+// text editing
+ctx.textBaseline = "top"; // middle/bottom
+ctx.textAlign = "center"; // left/right
+ctx.fillText("Привет, мир!", 50, 50);
+
+ctx.font = "20px Courier"; 
+ctx.fillText("Courier", 50, 50);
