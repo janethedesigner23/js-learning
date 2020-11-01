@@ -36,7 +36,7 @@
             };
 
             var gameOver = function () { 
-                clearInterval(intervalId);
+                clearInterval(timeoutId);
                 ctx.font = "60px Courier";
                 ctx.fillStyle = "Black";
                 ctx.textAlign = "center";
@@ -96,8 +96,16 @@
             };
 
             Snake.prototype.draw = function () {
-                for (var i = 0; i < this.segments.length; i++) {
-                    this.segments[i].drawSquare("Blue"); 
+                this.segments[0].drawSquare("Green");
+                var currentColor = "Black";
+                for (var i = 1; i < this.segments.length; i++) {
+                    this.segments[i].drawSquare(currentColor); 
+
+                    if (currentColor === "Black") {
+                        currentColor = "Yellow";
+                    } else {
+                        currentColor = "Black";
+                    }
                 }
             };
 
@@ -127,7 +135,8 @@
 
                 if (newHead.equal(apple.position)) { 
                     score++;
-                    apple.move(); 
+                    apple.move();
+                    animationTime -= 10; 
                 } else {
                     this.segments.pop(); 
                 }
@@ -176,8 +185,23 @@
             };
 
             Apple.prototype.move = function () {
-                var randomCol = Math.floor(Math.random() * (widthInBlocks - 2)) + 1;
-                var randomRow = Math.floor(Math.random() * (heightInBlocks - 2)) + 1;
+                var conflict = true;
+                var randomCol;
+                var randomRow;
+
+                while (conflict) {
+                    randomCol = Math.floor(Math.random() * (widthInBlocks - 2)) + 1;
+                    randomRow = Math.floor(Math.random() * (heightInBlocks - 2)) + 1;
+
+                    conflict = false;
+                    for (i = 0; i < snake.segments.length; i++) {
+                        var currentBlock = snake.segments[i];
+                        if (randomCol == currentBlock.col && randomRow == currentBlock.row) {
+                            conflict = true;
+                        }
+                    }
+                }
+
                 this.position = new Block(randomCol, randomRow);
             };
 
@@ -186,14 +210,28 @@
             var apple = new Apple();
 
             // animating snake
-            var intervalId = setInterval(function () { 
+            // var intervalId = setInterval(function () { 
+            //     ctx.clearRect(0, 0, width, height); 
+            //     drawScore();
+            //     snake.move();
+            //     snake.draw(); 
+            //     apple.draw(); 
+            //     drawBorder();
+            // }, 100);
+
+            var animationTime = 100;
+            var timeoutId;
+            var gameLoop = function () {
                 ctx.clearRect(0, 0, width, height); 
                 drawScore();
                 snake.move();
                 snake.draw(); 
                 apple.draw(); 
                 drawBorder();
-            }, 100);
+                timeoutId = setTimeout(gameLoop, animationTime);
+            };
+        
+            gameLoop();
 
             // transforming keykodes to direction
             var directions = {
